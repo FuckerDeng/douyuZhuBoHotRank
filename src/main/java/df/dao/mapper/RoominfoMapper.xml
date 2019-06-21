@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="df.dao.mapper.RoominfoMapper">
+  <resultMap id="BaseResultMap" type="df.bean.Roominfo">
+    <result column="roomId" jdbcType="INTEGER" property="roomid" />
+    <result column="zbName" jdbcType="VARCHAR" property="zbname" />
+    <result column="liveType" jdbcType="VARCHAR" property="livetype" />
+    <result column="stasticscount" jdbcType="INTEGER" property="stasticscount" />
+    <result column="roomUrl" jdbcType="VARCHAR" property="roomurl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    roomId, zbName, liveType, stasticscount, roomUrl
+  </sql>
+  <select id="selectByExample" parameterType="df.bean.RoominfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from roominfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="df.bean.RoominfoExample">
+    delete from roominfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="df.bean.Roominfo">
+    insert into roominfo (roomId, zbName, liveType, 
+      stasticscount, roomUrl)
+    values (#{roomid,jdbcType=INTEGER}, #{zbname,jdbcType=VARCHAR}, #{livetype,jdbcType=VARCHAR}, 
+      #{stasticscount,jdbcType=INTEGER}, #{roomurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="df.bean.Roominfo">
+    insert into roominfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roomid != null">
+        roomId,
+      </if>
+      <if test="zbname != null">
+        zbName,
+      </if>
+      <if test="livetype != null">
+        liveType,
+      </if>
+      <if test="stasticscount != null">
+        stasticscount,
+      </if>
+      <if test="roomurl != null">
+        roomUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="zbname != null">
+        #{zbname,jdbcType=VARCHAR},
+      </if>
+      <if test="livetype != null">
+        #{livetype,jdbcType=VARCHAR},
+      </if>
+      <if test="stasticscount != null">
+        #{stasticscount,jdbcType=INTEGER},
+      </if>
+      <if test="roomurl != null">
+        #{roomurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="df.bean.RoominfoExample" resultType="java.lang.Long">
+    select count(*) from roominfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update roominfo
+    <set>
+      <if test="record.roomid != null">
+        roomId = #{record.roomid,jdbcType=INTEGER},
+      </if>
+      <if test="record.zbname != null">
+        zbName = #{record.zbname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.livetype != null">
+        liveType = #{record.livetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stasticscount != null">
+        stasticscount = #{record.stasticscount,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomurl != null">
+        roomUrl = #{record.roomurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update roominfo
+    set roomId = #{record.roomid,jdbcType=INTEGER},
+      zbName = #{record.zbname,jdbcType=VARCHAR},
+      liveType = #{record.livetype,jdbcType=VARCHAR},
+      stasticscount = #{record.stasticscount,jdbcType=INTEGER},
+      roomUrl = #{record.roomurl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <!--批量让stasticscount增加1-->
+  <update id="updateBatch"  parameterType="java.util.List">
+    update roominfo set stasticscount=stasticscount+1 where roomId in (
+    <foreach collection="list" item="item" index="index" separator=",">
+      #{item.roomId,jdbcType=INTEGER}
+    </foreach>)
+  </update>
+
+  <!-- myself:批量插入 -->
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into roominfo (roomId, zbName,liveType,stasticscount,roomUrl) values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.roomId,jdbcType=INTEGER},
+      #{item.zbName,jdbcType=VARCHAR},
+      #{item.liveType,jdbcType=VARCHAR},
+      #{item.stasticsCount,jdbcType=INTEGER},
+      #{item.roomUrl,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>
